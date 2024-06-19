@@ -5,7 +5,7 @@ import tsconfigPaths from "vite-tsconfig-paths";
 export default defineConfig({
   plugins: [
     remix({
-      ssr: false,
+      ssr: true,
       future: {
         v3_fetcherPersist: true,
         v3_relativeSplatPath: true,
