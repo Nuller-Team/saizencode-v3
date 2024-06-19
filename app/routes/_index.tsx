@@ -54,7 +54,7 @@ export default function Index() {
       <div className="bg-white text-white p-4 mb-4 rounded-md border-b">
         <div className="max-w-6xl mx-auto w-full">
           <div className="mx-4">
-            <div className="text-2xl font-semibold text-emerald-500">Saizencode</div>
+          <div><img src="logo.webp" className="w-60"></img></div>
           </div>
         </div>
       </div>
