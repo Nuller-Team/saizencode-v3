@@ -13,65 +13,51 @@ const API_ENDPOINT = 'api/menu';
 
 export default function Index() {
   const [menu, set_menu] = useState<Category[]>([]);
-  const [filtered_menu, set_filtered_menu] = useState<MenuCategory[]>([]);
   const [query, set_query] = useState('');
-  const [limit, setLimit] = useState(10);
-  const [selected_category, setselected_category] = useState<Category | null>(null);
-  const [selected_menuitem, setselected_menu_item] = useState<MenuItem | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, set_loading] = useState(true);
+  const [selected_category, set_selected_category] = useState<Category | null>(null);
+  const [selected_menuitem, set_selected_menu_item] = useState<MenuItem | null>(null);
+  const [initial_menu, set_initial_menu] = useState<Category[]>([]);
+
   const openModal = (category: Category, menu_item: MenuItem) => {
-    setselected_category(category);
-    setselected_menu_item(menu_item);
+    set_selected_category(category);
+    set_selected_menu_item(menu_item);
   };
 
   const closeModal = () => {
-    setselected_category(null);
-    setselected_menu_item(null);
+    set_selected_category(null);
+    set_selected_menu_item(null);
   };
 
-
-
   useEffect(() => {
-    async function fetch_menu() {
-      setLoading(true);
+    async function fetchMenu() {
+      set_loading(true);
       try {
-        const response = await fetch(`${API_ENDPOINT}?query=${query}`);
+        const response = await fetch(API_ENDPOINT);
         const data = await response.json();
         if (Array.isArray(data)) {
           set_menu(data);
+          set_initial_menu(data);
         } else {
           console.error('Format Error:', data);
         }
       } catch (error) {
         console.error('Error:', error);
       }
-      setLoading(false);
+      set_loading(false);
     }
 
-    fetch_menu();
-  }, [query]);
+    fetchMenu();
+  }, []);
+
   useEffect(() => {
-    if (!query) {
-      set_filtered_menu(menu);
-      return;
-    }
-
-    const filtered = menu.map(category => {
-      const filteredItems = category.items.filter(item =>
-        item.name.toLowerCase().includes(query.toLowerCase()) ||
-        item.id.includes(query) ||
-        item.price.toString().includes(query)
+    const filteredMenu = initial_menu.filter(category => {
+      return category.items.some(item =>
+        item.name.toLowerCase().includes(query.toLowerCase())
       );
-
-      return {
-        ...category,
-        items: filteredItems
-      };
     });
-
-    set_filtered_menu(filtered.filter(category => category.items.length > 0));
-  }, [query, menu]);
-
+    set_menu(filteredMenu);
+  }, [query, initial_menu]);
   return (
     <div className="max-h-screen">
       <div className="bg-white text-white p-4 mb-4 rounded-md border-b">
