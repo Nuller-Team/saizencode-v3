@@ -13,6 +13,7 @@ const API_ENDPOINT = 'api/menu';
 
 export default function Index() {
   const [menu, set_menu] = useState<Category[]>([]);
+  const [filtered_menu, set_filtered_menu] = useState<MenuCategory[]>([]);
   const [query, set_query] = useState('');
   const [limit, setLimit] = useState(10);
   const [selected_category, setselected_category] = useState<Category | null>(null);
@@ -49,7 +50,27 @@ export default function Index() {
 
     fetch_menu();
   }, [query]);
+  useEffect(() => {
+    if (!query) {
+      set_filtered_menu(menu);
+      return;
+    }
 
+    const filtered = menu.map(category => {
+      const filteredItems = category.items.filter(item =>
+        item.name.toLowerCase().includes(query.toLowerCase()) ||
+        item.id.includes(query) ||
+        item.price.toString().includes(query)
+      );
+
+      return {
+        ...category,
+        items: filteredItems
+      };
+    });
+
+    set_filtered_menu(filtered.filter(category => category.items.length > 0));
+  }, [query, menu]);
 
   return (
     <div className="max-h-screen">
