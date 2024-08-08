@@ -18,6 +18,8 @@ export const meta: MetaFunction = () => {
   ];
 };
 
+const API_ENDPOINT = 'api/menu';
+
 export default function Index() {
   const [menu, set_menu] = useState<Category[]>([]);
   const [query, set_query] = useState('');
