@@ -5,7 +5,16 @@ import Modal from '../components/modal';
 export const meta: MetaFunction = () => {
   return [
     { title: "Saizencode" },
-    { name: "サイゼリヤのメニューを検索できるアプリ" },
+    { name: "description", content: "サイゼリヤのメニューを検索することができるアプリです。" },
+    { property:"og:title",content: "Saizencode" },
+    { property: "og:description", content: "サイゼリヤのメニューを検索することができるアプリです。" },
+    { property: "og:type", content: "website" },
+    { property: "og:url", content: "https://saizencode-v3.nuller.jp" },
+    { property: "og:image", content: "https://github.com/Nuller-Team/saizencode/blob/main/ocg/Saizencode.png?raw=true" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:title", content: "Saizencode" },
+    { name: "twitter:description", content: "サイゼリヤのメニューを検索することができるアプリです。" },
+    { name: "twitter:image", content: "https://github.com/Nuller-Team/saizencode/blob/main/ocg/Saizencode.png?raw=true" },
   ];
 };
 
