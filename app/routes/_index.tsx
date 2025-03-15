@@ -18,7 +18,7 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-const API_ENDPOINT = 'api/menu';
+const API_ENDPOINT = '/data/menu.json';
 
 export default function Index() {
   const [menu, set_menu] = useState<Category[]>([]);
@@ -62,11 +62,13 @@ export default function Index() {
   useEffect(() => {
     const filteredMenu = initial_menu.filter(category => {
       return category.items.some(item =>
-        item.name.toLowerCase().includes(query.toLowerCase())
+        item.name.toLowerCase().includes(query.toLowerCase()) ||
+        item.id.toString().includes(query)
       );
     });
     set_menu(filteredMenu);
   }, [query, initial_menu]);
+
   return (
     <div className="max-h-screen">
       <div className="bg-white text-white p-4 mb-4 rounded-md border-b">

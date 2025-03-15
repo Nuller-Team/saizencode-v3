@@ -8,35 +8,36 @@ interface ModalProps {
 }
 
 export default function Modal({ isOpen, on_close, category, menuItem }: ModalProps) {
-  const [visible, set_visible] = useState(false);
+
   const [animate_out, set_animate_out] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
-      set_visible(true);
       set_animate_out(false);
     } else {
       set_animate_out(true);
-      setTimeout(() => {
-        set_visible(false);
+      const timer = setTimeout(() => {
+        set_animate_out(false);
       }, 300);
+
+      return () => clearTimeout(timer);
     }
-  }, [isOpen, category, menuItem]); 
+  }, [isOpen]);
+
   const handle_close = () => {
     set_animate_out(true);
     setTimeout(() => {
       on_close();
-      set_visible(false);
     }, 300);
   };
 
-  const handle_overlay= (e: React.MouseEvent<HTMLDivElement>) => {
+  const handle_overlay = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
       handle_close();
     }
   };
 
-  if (!visible) {
+  if (!isOpen && !animate_out) {
     return null;
   }
 
