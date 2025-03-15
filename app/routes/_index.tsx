@@ -60,12 +60,17 @@ export default function Index() {
   }, []);
 
   useEffect(() => {
-    const filteredMenu = initial_menu.filter(category => {
-      return category.items.some(item =>
+    const filteredMenu = initial_menu.map(category => {
+      const filteredItems = category.items.filter(item =>
         item.name.toLowerCase().includes(query.toLowerCase()) ||
         item.id.toString().includes(query)
       );
-    });
+      return {
+        ...category,
+        items: filteredItems
+      };
+    }).filter(category => category.items.length > 0);
+
     set_menu(filteredMenu);
   }, [query, initial_menu]);
 
