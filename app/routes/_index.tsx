@@ -84,9 +84,9 @@ export default function Index() {
         </div>
       </div>
       <div className="max-w-6xl mx-auto">
-        <div className="bg-emerald-500 py-10 px-6 mx-4 rounded-3xl text-center">
-          <h1 className="text-2xl font-bold text-white pb-6">サイゼリヤのメニュー検索アプリ「Saizencode」</h1>
-          <a className="bg-white py-3 px-6 text-lg rounded-xl text-emerald-500 font-bold cursor-not-allowed opacity-80">使い方はこちら(準備中)</a>
+        <div className="bg-emerald-500 py-6 px-6 mx-6 rounded-2xl text-center">
+          <h1 className="text-2xl font-bold text-white pb-2">サイゼリヤのメニュー検索アプリ「Saizencode」</h1>
+            <p className="text-white text-lg">※このアプリは非公式です。掲載されている情報は正確でない場合があります。</p>
         </div>
         <div>
           <div className="px-6 sticky top-0 py-[20px] w-full bg-white z-[100]">
